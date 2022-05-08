@@ -8,6 +8,7 @@ import { User } from '../_models/user';
 })
 export class AccountService {
   baseUrl = "https://localhost:5001/api/";
+  isAuthenticated = false;
   private currentUserSource = new ReplaySubject<User>(1);
   currentUser$ = this.currentUserSource.asObservable();
 
@@ -29,6 +30,7 @@ export class AccountService {
     return this.http.post(this.baseUrl + 'account/register', model).pipe(
       map((user: User) => {
         if (user) {
+          this.isAuthenticated = true;
           localStorage.setItem('user', JSON.stringify(user));
           this.currentUserSource.next(user);
         }
@@ -41,6 +43,7 @@ export class AccountService {
   }
 
   logout() {
+    this.isAuthenticated = false;
     localStorage.removeItem('user');
     this.currentUserSource.next(null);
   }
