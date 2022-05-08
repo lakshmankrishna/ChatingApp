@@ -1,8 +1,10 @@
 <!-- interpolation -->
-<h1>{{title}}</h1>
 
-<ul>
-  <li *ngFor="let user of users">
-      userId:{{user.id}}<br> Name:{{user.userName}}
-  </li>
-</ul>
+
+<app-nav></app-nav>
+
+<div class="container">
+  <app-home></app-home>
+</div>
+
+<router-outlet></router-outlet>

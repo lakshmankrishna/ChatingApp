@@ -1,28 +1,25 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { User } from './_models/user';
+import { AccountService } from './_services/account.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit {
   title = 'The Chating App';
   users: any;
-  baseUrl ="https://localhost:5001/Users";
-  constructor(private http: HttpClient) {
+  baseUrl = "https://localhost:5001/api/Users";
+  constructor(private accountService: AccountService) {
   }
   ngOnInit(): void {
-    this.getUsers();
+    this.setCurrentUser();
   }
 
-  public getUsers():any{
-    this.http.get(this.baseUrl).subscribe(data=>{
-      this.users=data;
-    },
-    err=>{
-      console.log(err);
-    }
-    )
+  setCurrentUser() {
+    const user: User = JSON.parse(localStorage.getItem('user'));
+    this.accountService.setCurrentUser(user);
   }
 }
