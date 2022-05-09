@@ -24,12 +24,7 @@ export class NavComponent implements OnInit {
       this.accountService.isAuthenticated = true;
       this.toastr.success('Login Success!')
       this.router.navigateByUrl('/members');
-    },
-      error => {
-        this.toastr.error(error.error);
-        console.log(error);
-      }
-    );
+    });
   }
 
   public logout() {
